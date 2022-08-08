@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import List from './components/List/List'
 
 const INITIAL_STATE = [
   {
@@ -47,16 +48,7 @@ function App() {
   return (
     <div className="App">
       <h1>Subs App</h1>
-      <ul>
-        {
-          subscriber.map(subs =>
-            <li key={subs.nick}>
-              <img src={subs.avatar} alt='' />
-              <h4>{subs.nick}</h4>
-              <p>{subs.description?.substring(0, 100)}</p>
-            </li>)
-        }
-      </ul>
+      <List subscriber={subscriber} />
     </div>
   )
 }
