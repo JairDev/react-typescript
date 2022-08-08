@@ -1,32 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 
+const INITIAL_STATE = [
+  {
+    nick: "shogun",
+    subMonths: 2,
+    avatar: 'https://i.pravatar.cc/150?u=shogun',
+    description: 'Desarrollador web'
+  },
+  {
+    nick: "kirt",
+    subMonths: 3,
+    avatar: 'https://i.pravatar.cc/150?u=kirt',
+  }
+]
+
+interface AppState {
+  subscriber: Array<Sub>
+  newSubscriber: number
+}
+
+// Definir los tipos que tendrá, en este caso el objeto del estado
+interface Sub {
+  nick: string
+  subMonths: number
+  avatar: string
+  description?: string
+}
+
+// ? tipo genérico, el tipo que se espera es parametrizable,
+// ? un array puede ser de objects, numbers, string, etc.
+
 function App() {
-  const [count, setCount] = useState(0)
+  // * typescript + state
+  // <> tipo genérico number, string, etc.
+  // En el estado inicial, typescript infiere los tipos de cada
+  // propiedad, por ejemplo en este caso donde el estado es un 
+  // array de objetos
+  const [subscriber, setSubscriber] = useState<AppState["subscriber"]>([])
+  const [newSubscriber, setNewSubscriber] = useState<AppState["newSubscriber"]>(0)
+
+  useEffect(() => {
+    setSubscriber(INITIAL_STATE)
+  }, [])
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>Subs App</h1>
+      <ul>
+        {
+          subscriber.map(subs =>
+            <li key={subs.nick}>
+              <img src={subs.avatar} alt='' />
+              <h4>{subs.nick}</h4>
+              <p>{subs.description?.substring(0, 100)}</p>
+            </li>)
+        }
+      </ul>
     </div>
   )
 }
