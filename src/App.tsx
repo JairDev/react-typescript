@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import Form from './components/Form'
 import List from './components/List/List'
 
 const INITIAL_STATE = [
@@ -49,6 +50,7 @@ function App() {
     <div className="App">
       <h1>Subs App</h1>
       <List subscriber={subscriber} />
+      <Form />
     </div>
   )
 }

@@ -1,4 +1,6 @@
 interface Props {
+  // si el componente necesita un children
+  //childre: JSX.Element, string, React.ReactNode
   subscriber: Array<{
     nick: string
     subMonths: number
